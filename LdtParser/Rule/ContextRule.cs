@@ -1,4 +1,5 @@
-public class ValueRule : IRule
+namespace LdtParser.Rule;
+public class ContextRule : IRule
 {
     public bool Validate()
     {

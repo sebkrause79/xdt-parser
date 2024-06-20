@@ -1,4 +1,7 @@
 namespace LdtParser.Rule;
-public interface IRule {
+internal interface IRule 
+{
+    string Name { get; }
+    ErrorState ErrorState { get; }
     bool Validate();
 }

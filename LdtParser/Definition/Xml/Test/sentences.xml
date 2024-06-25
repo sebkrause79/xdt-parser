@@ -1,4 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xsd:sentences xmlns:xdt="https://sebschauer.de/xdt-schema">
-	
-</xsd:sentences>
+<xdt:sentences xmlns:xdt="https://sebschauer.de/xdt-schema">
+	<xdt:sentence id="1000">
+		<xdt:field id="1001" presence="1" description="Titelfeld Satz 1000" type="M">
+			<xdt:object id="Obj_0001" presence="1" type="m"></xdt:object>
+		</xdt:field>
+		<xdt:field id="1001" presence="1" description="Footer Satz 1000" type="M"></xdt:field>
+	</xdt:sentence>
+</xdt:sentences>

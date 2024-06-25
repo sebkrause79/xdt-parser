@@ -2,6 +2,6 @@
 # Diese .gitignore-Datei wurde von Microsoft(R) Visual Studio automatisch erstellt.
 ################################################################################
 
-/.vs/LdtParser
-/LdtParser.Tests/bin/Debug/net6.0
-/LdtParser.Tests/obj
+**/.vs
+**/bin
+**/obj

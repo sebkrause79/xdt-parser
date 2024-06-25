@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns:xdt="https://sebschauer.de/xdt-schema">
+	<object id="Obj_0001">
+		<field id="8002" presence="1" description="Objektident" type="M" rules="K027">
+			<field id="8102" presence="n" description="Abrechnung_GKV" type="m" rules="K027 K070">
+				<object id="Obj_0002" presence="1" type="m" />
+			</field>
+			<field id="8103" presence="n" description="Abrechnung_PKV" type="m" rules="K027 K070">
+				<object id="Obj_0003" presence="1" type="m" />
+			</field>
+			<field id="8104" presence="1" description="Abrechnung_Ige-Leistungen" type="m" rules="K027 K070">
+				<object id="Obj_0004" presence="1" type="m" />
+			</field>
+			<field id="8105" presence="1" description="Abrechnung_Sonstige_Kostenuebernahme" type="m" rules="K027">
+				<object id="Obj_0005" presence="1" type="m" />
+			</field>
+			<field id="8106" presence="1" description="Abrechnung_Selektivvertrag" type="m" rules="K027 K070">
+				<object id="Obj_0006" presence="1" type="m" />
+			</field>
+			<field id="8109" presence="1" description="Abrechnung_OEGD" type="m" rules="K027 K070">
+				<object id="Obj_0009" presence="1" type="m" />
+			</field>
+		</field>
+	</object>
+</objects>

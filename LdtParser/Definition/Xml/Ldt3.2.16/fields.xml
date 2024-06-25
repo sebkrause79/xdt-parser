@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xdt:fields xmlns:xdt="https://sebschauer.de/xdt-schema">
+	<xdt:field id="0001" length="&lt;=12" format="alnum" rules="F007 E001">Version XDT</xdt:field>
+	<xdt:field id="0080" length="&lt;=60" format="alnum">id der Fallakte oder Studie</xdt:field>
+	<xdt:field id="0081" length="&lt;=60" format="alnum">Bezeichnung der Fallakte oder Studie</xdt:field>
+</xdt:fields>

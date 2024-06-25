@@ -1,5 +1,0 @@
-<Fields>
-	<Field FK="0001" Length="&lt;=12" Format="alnum" Rules="F007, E001">Version XDT</Field>
-	<Field FK="0080" Length="&lt;=60" Format="alnum">ID der Fallakte oder Studie</Field>
-	<Field FK="0081" Length="&lt;=60" Format="alnum">Bezeichnung der Fallakte oder Studie</Field>
-</Fields>

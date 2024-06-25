@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LdtParser.ModelGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "XML/Test"
+    }
+  }
+}

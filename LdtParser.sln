@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LdtParser", "LdtParser\LdtParser.csproj", "{114F96AF-20FA-412D-A511-5539D4C064FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LdtParser.Tests", "LdtParser.Tests\LdtParser.Tests.csproj", "{0A7BF32B-4F63-4E66-9103-D4BA280CAAA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LdtParser.Tests", "LdtParser.Tests\LdtParser.Tests.csproj", "{0A7BF32B-4F63-4E66-9103-D4BA280CAAA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LdtParser.ModelGenerator", "LdtParser.ModelGenerator\LdtParser.ModelGenerator.csproj", "{43B1BEC2-167E-40A5-848A-80905465C89C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0A7BF32B-4F63-4E66-9103-D4BA280CAAA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A7BF32B-4F63-4E66-9103-D4BA280CAAA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A7BF32B-4F63-4E66-9103-D4BA280CAAA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43B1BEC2-167E-40A5-848A-80905465C89C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43B1BEC2-167E-40A5-848A-80905465C89C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43B1BEC2-167E-40A5-848A-80905465C89C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43B1BEC2-167E-40A5-848A-80905465C89C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

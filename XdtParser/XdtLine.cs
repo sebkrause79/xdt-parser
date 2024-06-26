@@ -28,4 +28,6 @@ internal class XdtLine {
         return string.Join("", Payload.Select(p => 
             $"{p.Length + 9:D3}{FieldIdentifier}{p}\r\n"));
     }
+
+    internal string GetPayload() => string.Join("\r\n", Payload);
 }

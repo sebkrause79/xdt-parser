@@ -4,12 +4,12 @@ public class XdtDocument
 {
     private readonly List<XdtLine> _lines = new();
 
-    internal XdtDocument(List<XdtLine> lines)
+    private XdtDocument(List<XdtLine> lines)
     {
         _lines = lines;
     }
 
-    public static XdtDocument Parse(string xdt)
+    public static XdtDocument FromXdt(string xdt)
     {
         var lines = xdt.Split("\r\n")
             .Where(s => !string.IsNullOrWhiteSpace(s))

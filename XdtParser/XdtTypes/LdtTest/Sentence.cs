@@ -2,12 +2,18 @@
 
 internal abstract class Sentence : IContainer
 {
-    protected List<IContainer> _childs;
+    protected List<IContainer> _childs = new();
     protected string _name;
 
     protected Sentence(string name)
     {
         _name = name;
+    }
+
+    public IContainer AddChild(IContainer child)
+    {
+        _childs.Add(child);
+        return this;
     }
 
     public bool IsValid()
@@ -28,5 +34,20 @@ internal abstract class Sentence : IContainer
         }
 
         return _childs.All(child => child.IsValid());
+    }
+
+    public bool TakeLines(List<XdtLine> lines)
+    {
+        if (lines.Count < 3) 
+        {
+            throw new ArgumentException("Too few lines for a sentence!");
+        }
+
+        throw new NotImplementedException();
+    }
+
+    IContainer IContainer.AddChild(IContainer child)
+    {
+        throw new NotImplementedException();
     }
 }

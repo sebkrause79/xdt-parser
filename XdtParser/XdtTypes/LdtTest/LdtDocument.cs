@@ -14,8 +14,15 @@ public class LdtDocument
             throw new ArgumentException("Found row not containing to a sentence");
         }
 
+        //creating models
         _sentences = blocks
             .Select(b => SentenceFactory.GetSentence(b.block))
             .ToList();
+
+        //parsing ldt data
+        foreach(var sentence in _sentences) 
+        {
+            sentence.TakeLines(lines);
+        }
     }
 }

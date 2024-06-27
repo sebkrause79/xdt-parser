@@ -6,16 +6,18 @@ internal class Field : IContainer
     private List<string> _content;
     private List<IRule> _rules;
     private FieldPresence? _fieldPresence;
+    private FieldMultiplicity _fieldMultiplicity;
     private List<IContainer> _childs = new();
 
     public string FieldIdentifier => _description.Id;
     public string Content => string.Join("\r\n", _content ?? new List<string>());
 
-    public Field(FieldDescription description, FieldPresence? presence = null, List<IRule>? rules = null)
+    public Field(FieldDescription description, FieldPresence? presence = null, List<IRule>? rules = null, FieldMultiplicity fieldMultiplicity = FieldMultiplicity.Single)
     {
         _description = description;
         _fieldPresence = presence;
         _rules = rules ?? new();
+        _fieldMultiplicity = fieldMultiplicity;
     }
 
     public bool IsValid()

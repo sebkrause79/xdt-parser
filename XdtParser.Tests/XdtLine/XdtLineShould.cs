@@ -15,6 +15,7 @@ public class XdtLineShould
 01380018215
 ";
         var parsed = XdtDocument.FromXdt(xdt);
+        var ldt = parsed.AsLdt();
 
         parsed["8000"].Should().Be("8215");
         parsed["1234"].Should().Be("Row 1\r\nRow 2");

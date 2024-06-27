@@ -5,27 +5,44 @@ internal static class XdtListExtensions
     public static List<(List<XdtLine> block, bool isInBlock)> GetBlocks(this List<XdtLine> lines, string blockStart, string blockEnd)
     {
         var result = new List<(List<XdtLine>, bool)>();
-        var skip = 0;
-        while (skip < lines.Count)
+        var queue = new Queue<XdtLine>(lines);
+        var block = new List<XdtLine>();
+        var isInBlock = false;
+        while (queue.Count > 0)
         {
-            var block = lines
-                .Skip(skip)
-                .TakeWhile(l => l.FieldIdentifier != blockStart)
-                .ToList();
-            skip += block.Count;
-            if (block.Any())
+            var line = queue.Dequeue();
+            if (line.FieldIdentifier == blockStart)
             {
-                result.Add((block, false));
+                if (isInBlock)
+                {
+                    throw new ArgumentException("Sentences may not be nested");
+                }
+
+                if (block.Any())
+                {
+                    result.Add((block, false));
+                    block = new();
+                }
+
+                isInBlock = true;
+                block.Add(line);
             }
-            block = lines
-                .Skip(skip)
-                .TakeWhile(l => l.FieldIdentifier != blockEnd)
-                .Take(1)
-                .ToList();
-            skip += block.Count;
-            if (block.Any())
+            else if (line.FieldIdentifier == blockEnd)
             {
+                if (!isInBlock)
+                {
+                    throw new ArgumentException("Sentences may not be nested");
+                }
+
+                block.Add(line);
                 result.Add((block, true));
+                block = new();
+
+                isInBlock = false;
+            }
+            else
+            {
+                block.Add(line);
             }
         }
 

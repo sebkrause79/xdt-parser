@@ -1,4 +1,6 @@
-﻿namespace XdtParser;
+﻿using XdtParser.XdtTypes.LdtTest;
+
+namespace XdtParser;
 
 public class XdtDocument
 {
@@ -26,6 +28,11 @@ public class XdtDocument
             ?? throw new ArgumentOutOfRangeException($"Document does not contain field identifier '{fi}'"));
 
     public string GetXdt() => string.Join("", _lines.Select(l => l.GetXdt()));
+
+    public LdtDocument AsLdt()
+    {
+        return new LdtDocument(_lines);
+    }
 
     private static List<XdtLine> KumulateLines(List<XdtLine> list, XdtLine next)
     {

@@ -2,17 +2,21 @@
 
 internal abstract class Sentence : IContainer
 {
-    protected List<IContainer> _childs = new();
+    private List<IContainer> _childs = new();
     protected string _name;
+
+    protected IContainer _rootElement => _childs.First();
 
     protected Sentence(string name)
     {
         _name = name;
+        _childs.Add(new Field(FieldDescriptionFactory.Get("8000"), FieldPresence.M, new List<IRule>{RulesFactory.Get("E001")}));
+        _childs.Add(new Field(FieldDescriptionFactory.Get("8001"), FieldPresence.M, new List<IRule>{RulesFactory.Get("E001")}));
     }
 
     public IContainer AddChild(IContainer child)
     {
-        _childs.Add(child);
+        _rootElement.AddChild(child);
         return this;
     }
 

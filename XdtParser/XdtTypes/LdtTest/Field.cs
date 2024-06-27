@@ -5,14 +5,16 @@ internal class Field : IContainer
     public FieldDescription _description;
     private List<string> _content;
     private List<IRule> _rules;
+    private FieldPresence? _fieldPresence;
     private List<IContainer> _childs = new();
 
     public string FieldIdentifier => _description.Id;
     public string Content => string.Join("\r\n", _content ?? new List<string>());
 
-    public Field(FieldDescription description, List<IRule>? rules = null)
+    public Field(FieldDescription description, FieldPresence? presence = null, List<IRule>? rules = null)
     {
         _description = description;
+        _fieldPresence = presence;
         _rules = rules ?? new();
     }
 

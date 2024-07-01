@@ -1,6 +1,6 @@
 namespace XdtParser;
 
-internal class XdtLine {
+public class XdtLine {
     internal string FieldIdentifier { get; set; }
     internal readonly List<string> Payload = new();
 

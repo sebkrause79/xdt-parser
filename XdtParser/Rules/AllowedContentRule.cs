@@ -1,4 +1,6 @@
-﻿namespace XdtParser.XdtTypes.LdtTest;
+﻿using XdtParser.Container;
+
+namespace XdtParser.Rules;
 
 internal class AllowedContentRule : IRule
 {
@@ -7,6 +9,11 @@ internal class AllowedContentRule : IRule
     internal AllowedContentRule(IEnumerable<string> contents)
     {
         _whitelist = contents;
+    }
+
+    internal AllowedContentRule(string content)
+    {
+        _whitelist = new[] { content };
     }
 
     public bool IsValid(string content, IContainer? context)

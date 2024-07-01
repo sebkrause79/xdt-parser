@@ -1,16 +1,44 @@
-﻿namespace XdtParser.XdtTypes.LdtTest;
+﻿using XdtParser.Container;
+using XdtParser.Enums;
+
+namespace XdtParser.XdtTypes.LdtTest;
 
 internal class Sentence8215 : Sentence
 {
-    public Sentence8215() : base("8215")
+    public Sentence8215(IContainer parent) : base("8215", parent)
     {
-        _rootElement
-            .AddChild(new Field(FieldDescriptionFactory.Get("1234"), 
-                FieldPresence.K, 
-                fieldMultiplicity: FieldMultiplicity.Multiple)
-                .AddChild(new Field(FieldDescriptionFactory.Get("1235"), 
-                    FieldPresence.m)))
-            .AddChild(new Field(FieldDescriptionFactory.Get("1236")))
-            ;
+        Children = new List<IContainer>()
+        {
+            new Field(
+                description: FieldDescriptionFactory.Get("1234"),
+                parent: _rootElement,
+                childs: new()
+                {
+                    new Field(
+                        description: FieldDescriptionFactory.Get("1235"),
+                        parent: _rootElement,
+                        childs: new()
+                        {
+                        },
+                        rules: null,
+                        presence: Presence.m,
+                        multiplicity: Multiplicity.Single
+                    )
+                },
+                rules: null,
+                presence: Presence.K,
+                multiplicity: Multiplicity.Multiple
+            ),
+            new Field(
+                description: FieldDescriptionFactory.Get("1236"),
+                parent: _rootElement,
+                childs: new()
+                {
+                },
+                rules: null,
+                presence: Presence.K,
+                multiplicity: Multiplicity.Single
+            )
+        };
     }
 }

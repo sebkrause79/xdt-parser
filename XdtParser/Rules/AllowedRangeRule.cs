@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
+using XdtParser.Container;
 
-namespace XdtParser.XdtTypes.LdtTest;
+namespace XdtParser.Rules;
 
 internal class AllowedRangeRule : IRule
 {

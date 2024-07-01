@@ -1,4 +1,6 @@
-﻿namespace XdtParser.XdtTypes.LdtTest;
+﻿using XdtParser.Container;
+
+namespace XdtParser.Rules;
 
 internal interface IRule
 {

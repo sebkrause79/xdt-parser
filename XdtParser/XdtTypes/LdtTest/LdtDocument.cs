@@ -1,10 +1,12 @@
-﻿using XdtParser.Helper;
+﻿using XdtParser.Container;
+using XdtParser.Helper;
 
 namespace XdtParser.XdtTypes.LdtTest;
 
-public class LdtDocument
+public class LdtDocument : IContainer
 {
-    private List<IContainer> _sentences;
+    public IContainer Parent => null!;
+    public List<IContainer> Children { get; set; }
 
     internal LdtDocument(List<XdtLine> lines)
     {
@@ -14,15 +16,27 @@ public class LdtDocument
             throw new ArgumentException("Found row not containing to a sentence");
         }
 
-        //creating models
-        _sentences = blocks
-            .Select(b => SentenceFactory.GetSentence(b.block))
+        Children = blocks
+            .Select(b => SentenceFactory.GetSentence(b.block, this))
             .ToList();
 
-        //parsing ldt data
-        foreach(var sentence in _sentences) 
+        TakeLines(lines);
+    }
+
+    public bool IsValid()
+    {
+        return Children.TrueForAll(c => c.IsValid());
+    }
+
+    public bool TakeLines(List<XdtLine> lines)
+    {
+        foreach (var child in Children)
         {
-            sentence.TakeLines(lines);
+            if (!child.TakeLines(lines))
+            {
+                return false;
+            }
         }
+        return true;
     }
 }

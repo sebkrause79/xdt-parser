@@ -1,4 +1,4 @@
-﻿namespace XdtParser.XdtTypes.LdtTest;
+﻿namespace XdtParser.Container;
 
 internal class FieldDescription
 {

@@ -1,6 +1,4 @@
-﻿using XdtParser.Container;
-
-namespace XdtParser.Rules;
+﻿namespace XdtParser.Interface;
 
 internal interface IRule
 {

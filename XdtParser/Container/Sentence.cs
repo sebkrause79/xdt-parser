@@ -1,4 +1,5 @@
 ﻿using XdtParser.Enums;
+using XdtParser.Interface;
 using XdtParser.Rules;
 using XdtParser.XdtTypes.LdtTest;
 
@@ -17,6 +18,8 @@ internal abstract class Sentence : IContainer
     {
         get => _rootElement.Children; set => _rootElement.Children = value;
     }
+
+    public string Index => _name;
 
     protected Sentence(string name, IContainer parent)
     {
@@ -46,10 +49,10 @@ internal abstract class Sentence : IContainer
 
     public bool IsValid()
     {
-        throw new NotImplementedException();
+        return _elements.TrueForAll(e => e.IsValid());
     }
 
-    public bool TakeLines(List<XdtLine> lines)
+    public void TakeLines(List<XdtLine> lines)
     {
         if (lines.Count < 3)
         {
@@ -58,12 +61,7 @@ internal abstract class Sentence : IContainer
 
         foreach (var item in _elements)
         {
-            if (!item.TakeLines(lines))
-            {
-                return false;
-            }
+            item.TakeLines(lines);
         }
-
-        return true;
     }
 }

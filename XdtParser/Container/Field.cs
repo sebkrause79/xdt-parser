@@ -1,6 +1,6 @@
 ﻿using XdtParser.Enums;
 using XdtParser.Helper;
-using XdtParser.Rules;
+using XdtParser.Interface;
 
 namespace XdtParser.Container;
 
@@ -18,6 +18,9 @@ internal class Field : IContainer
 
     public string Content => string.Join("\r\n", _content ?? new List<string>());
 
+    public string Index => _fieldIdentifier;
+    public bool HasContent => _content is { Count: > 0 };
+
     public Field(FieldDescription description, IContainer parent, List<IContainer>? childs = null, List<IRule>? rules = null, Presence? presence = null,
         Multiplicity multiplicity = Multiplicity.Single)
     {
@@ -31,10 +34,40 @@ internal class Field : IContainer
 
     public bool IsValid()
     {
-        throw new NotImplementedException();
+        var parentField = this.GetFieldAbove();
+        if (_presence == Presence.M)
+        {
+            if (!HasContent)
+            {
+                return false;
+            }
+        }
+
+        if (_presence == Presence.m)
+        {
+            if (!HasContent && parentField.HasContent)
+            {
+                return false;
+            }
+        }
+
+        if (_presence == Presence.k)
+        {
+            if (HasContent && !parentField.HasContent)
+            {
+                return false;
+            }
+        }
+
+        if (_rules.Any(r => !r.IsValid(Content, this)))
+        {
+            return false;
+        }
+
+        return Children.TrueForAll(child => child.IsValid());
     }
 
-    public bool TakeLines(List<XdtLine> lines)
+    public void TakeLines(List<XdtLine> lines)
     {
         var line = lines.First();
         if (line.FieldIdentifier == _fieldIdentifier)
@@ -42,17 +75,11 @@ internal class Field : IContainer
             _content ??= new();
             _content.Add(line.GetPayload());
             lines.RemoveAt(0);
-            return true;
         }
 
         foreach (var child in Children)
         {
-            if (child.TakeLines(lines) == true)
-            {
-                return true;
-            }
+            child.TakeLines(lines);
         }
-
-        return false;
     }
 }

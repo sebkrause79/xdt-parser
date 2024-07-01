@@ -1,4 +1,5 @@
 ﻿using XdtParser.Enums;
+using XdtParser.Interface;
 using XdtParser.Rules;
 using XdtParser.XdtTypes.LdtTest;
 
@@ -17,6 +18,8 @@ internal abstract class Object : IContainer
     {
         get => _rootElement.Children; set => _rootElement.Children = value;
     }
+
+    public string Index => _name;
 
     protected Object(string name, IContainer parent)
     {
@@ -49,7 +52,7 @@ internal abstract class Object : IContainer
         throw new NotImplementedException();
     }
 
-    public bool TakeLines(List<XdtLine> lines)
+    public void TakeLines(List<XdtLine> lines)
     {
         throw new NotImplementedException();
     }

@@ -1,4 +1,5 @@
 ﻿using XdtParser.Container;
+using XdtParser.Interface;
 
 namespace XdtParser.Helper;
 
@@ -9,8 +10,10 @@ internal static class ContainerHelper
         do
         {
             item = item.Parent;
-        } while (item is not Field && item is not null);
-
-        return (Field?)item;
+            if (item is null or Field)
+            {
+                return (Field?)item;
+            }
+        } while (true);
     }
 }

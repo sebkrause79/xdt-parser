@@ -17,6 +17,8 @@ public class XdtLineShould
         var parsed = XdtDocument.FromXdt(xdt);
         var ldt = parsed.AsLdt();
 
+        ldt.IsValid().Should().BeTrue();
+
         parsed["8000"].Should().Be("8215");
         parsed["1234"].Should().Be("Row 1\r\nRow 2");
         parsed["1235"].Should().Be("Another Row");

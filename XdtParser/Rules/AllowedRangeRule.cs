@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using XdtParser.Container;
+using XdtParser.Interface;
 
 namespace XdtParser.Rules;
 

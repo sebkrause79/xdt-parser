@@ -1,11 +1,14 @@
-﻿namespace XdtParser.Container;
+﻿namespace XdtParser.Interface;
 
 public interface IContainer
 {
     IContainer Parent { get; }
+
+    string Index { get; }
+
     List<IContainer> Children { get; set; }
 
     bool IsValid();
 
-    bool TakeLines(List<XdtLine> lines);
+    void TakeLines(List<XdtLine> lines);
 }

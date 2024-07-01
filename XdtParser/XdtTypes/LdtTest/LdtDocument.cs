@@ -1,5 +1,6 @@
 ﻿using XdtParser.Container;
 using XdtParser.Helper;
+using XdtParser.Interface;
 
 namespace XdtParser.XdtTypes.LdtTest;
 
@@ -7,6 +8,8 @@ public class LdtDocument : IContainer
 {
     public IContainer Parent => null!;
     public List<IContainer> Children { get; set; }
+
+    public string Index => string.Join(" / ", Children.Select(c => c.Index));
 
     internal LdtDocument(List<XdtLine> lines)
     {
@@ -28,15 +31,11 @@ public class LdtDocument : IContainer
         return Children.TrueForAll(c => c.IsValid());
     }
 
-    public bool TakeLines(List<XdtLine> lines)
+    public void TakeLines(List<XdtLine> lines)
     {
         foreach (var child in Children)
         {
-            if (!child.TakeLines(lines))
-            {
-                return false;
-            }
+            child.TakeLines(lines);
         }
-        return true;
     }
 }

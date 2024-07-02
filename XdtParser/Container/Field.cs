@@ -1,6 +1,7 @@
 ﻿using XdtParser.Enums;
 using XdtParser.Helper;
 using XdtParser.Interface;
+using XdtParser.Rules;
 
 namespace XdtParser.Container;
 
@@ -20,6 +21,8 @@ internal class Field : IContainer
 
     public string Index => _fieldIdentifier;
     public bool HasContent => _content is { Count: > 0 };
+
+    public bool IsPassed { get; private set; } = false;
 
     public Field(FieldDescription description, IContainer parent, List<IContainer>? childs = null, List<IRule>? rules = null, Presence? presence = null,
         Multiplicity multiplicity = Multiplicity.Single)
@@ -45,7 +48,12 @@ internal class Field : IContainer
 
         if (_presence == Presence.m)
         {
-            if (!HasContent && parentField.HasContent)
+            if (_rules.Any(r => r is ContextRule && !r.IsValid(Content, this)))
+            {
+                return false;
+            }
+
+            if (!HasContent && (parentField?.HasContent ?? false))
             {
                 return false;
             }
@@ -53,7 +61,12 @@ internal class Field : IContainer
 
         if (_presence == Presence.k)
         {
-            if (HasContent && !parentField.HasContent)
+            if (_rules.Any(r => r is ContextRule && !r.IsValid(Content, this)))
+            {
+                return false;
+            }
+
+            if (HasContent && !(parentField?.HasContent ?? false))
             {
                 return false;
             }
@@ -67,19 +80,29 @@ internal class Field : IContainer
         return Children.TrueForAll(child => child.IsValid());
     }
 
-    public void TakeLines(List<XdtLine> lines)
+    public bool TakeLine(XdtLine line)
     {
-        var line = lines.First();
+        if (IsPassed)
+        {
+            return false;
+        }
+
         if (line.FieldIdentifier == _fieldIdentifier)
         {
             _content ??= new();
             _content.Add(line.GetPayload());
-            lines.RemoveAt(0);
+            return true;
         }
 
         foreach (var child in Children)
         {
-            child.TakeLines(lines);
+            if (child.TakeLine(line))
+            {
+                return true;
+            }
         }
+
+        IsPassed = true;
+        return false;
     }
 }

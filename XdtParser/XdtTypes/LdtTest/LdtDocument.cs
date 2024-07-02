@@ -1,5 +1,4 @@
-﻿using XdtParser.Container;
-using XdtParser.Helper;
+﻿using XdtParser.Helper;
 using XdtParser.Interface;
 
 namespace XdtParser.XdtTypes.LdtTest;
@@ -33,9 +32,27 @@ public class LdtDocument : IContainer
 
     public void TakeLines(List<XdtLine> lines)
     {
-        foreach (var child in Children)
+        foreach (var line in lines)
         {
-            child.TakeLines(lines);
+            var success = TakeLine(line);
+            if (!success && BreakOnParseError)
+            {
+                break;
+            }
         }
     }
+
+    public bool TakeLine(XdtLine line)
+    {
+        var success = false;
+        foreach (var child in Children)
+        {
+            success |= child.TakeLine(line);
+        }
+        return success;
+    }
+
+    public bool IsPassed { get; private set; }
+
+    public bool BreakOnParseError { get; set; } = true;
 }

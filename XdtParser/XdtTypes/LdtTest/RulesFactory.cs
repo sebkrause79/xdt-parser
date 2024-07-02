@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using XdtParser.Interface;
+﻿using XdtParser.Interface;
 using XdtParser.Rules;
 
 namespace XdtParser.XdtTypes.LdtTest;

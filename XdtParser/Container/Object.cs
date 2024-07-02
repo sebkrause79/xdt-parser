@@ -52,6 +52,13 @@ internal abstract class Object : IContainer
         throw new NotImplementedException();
     }
 
+    public bool TakeLine(XdtLine line)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsPassed { get; }
+
     public void TakeLines(List<XdtLine> lines)
     {
         throw new NotImplementedException();

@@ -10,5 +10,7 @@ public interface IContainer
 
     bool IsValid();
 
-    void TakeLines(List<XdtLine> lines);
+    bool TakeLine(XdtLine line);
+
+    bool IsPassed { get; }
 }

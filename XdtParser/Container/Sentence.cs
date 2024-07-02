@@ -52,16 +52,25 @@ internal abstract class Sentence : IContainer
         return _elements.TrueForAll(e => e.IsValid());
     }
 
-    public void TakeLines(List<XdtLine> lines)
+    public bool TakeLine(XdtLine line)
     {
-        if (lines.Count < 3)
+        if (IsPassed)
         {
-            throw new ArgumentException("Too few lines for a sentence!");
+            return false;
         }
 
         foreach (var item in _elements)
         {
-            item.TakeLines(lines);
+            if (item.TakeLine(line))
+            {
+                return true;
+            }
         }
+
+        IsPassed = true;
+
+        return false;
     }
+
+    public bool IsPassed { get; private set; } = false;
 }

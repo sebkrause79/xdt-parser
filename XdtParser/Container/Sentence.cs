@@ -49,7 +49,15 @@ internal abstract class Sentence : IContainer
 
     public bool IsValid()
     {
-        return _elements.TrueForAll(e => e.IsValid());
+        foreach (var element in _elements)
+        {
+            if (!element.IsValid())
+            {
+                return false;
+            }
+        }
+        return true;
+        //return _elements.TrueForAll(e => e.IsValid());
     }
 
     public bool TakeLine(XdtLine line)

@@ -31,9 +31,7 @@ public class XdtDocument
 
     public LdtDocument AsLdt()
     {
-        var linesCopy = new XdtLine[_lines.Count];
-        _lines.CopyTo(linesCopy);
-        return new LdtDocument(linesCopy.ToList());
+        return LdtDocumentFactory.GetDocument(_lines);
     }
 
     private static List<XdtLine> KumulateLines(List<XdtLine> list, XdtLine next)

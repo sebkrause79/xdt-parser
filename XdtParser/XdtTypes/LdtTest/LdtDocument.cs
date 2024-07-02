@@ -1,9 +1,11 @@
-﻿using XdtParser.Helper;
+﻿using System.Runtime.CompilerServices;
+using XdtParser.Helper;
 using XdtParser.Interface;
 
+[assembly:InternalsVisibleTo("XdtParser.Tests")]
 namespace XdtParser.XdtTypes.LdtTest;
 
-public class LdtDocument : IContainer
+public abstract class LdtDocument : IContainer
 {
     public IContainer Parent => null!;
     public List<IContainer> Children { get; set; }
@@ -25,7 +27,7 @@ public class LdtDocument : IContainer
         TakeLines(lines);
     }
 
-    public bool IsValid()
+    public virtual bool IsValid()
     {
         return Children.TrueForAll(c => c.IsValid());
     }

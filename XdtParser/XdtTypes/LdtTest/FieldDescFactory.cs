@@ -2,7 +2,7 @@ using XdtParser.Container;
 
 namespace XdtParser.XdtTypes.LdtTest;
 
-internal static class FieldDescriptionFactory
+internal static class FieldDescFactory
 {
     public static FieldDescription Get(string field)
     {

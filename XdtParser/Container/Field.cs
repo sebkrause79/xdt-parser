@@ -5,37 +5,31 @@ using XdtParser.Rules;
 
 namespace XdtParser.Container;
 
-internal class Field : IContainer
+internal class Field : BaseXdtElement
 {
     private readonly FieldDescription _description;
     private List<string> _content = null!;
-    private List<IRule> _rules;
-    private Presence? _presence;
-    private Multiplicity _multiplicity;
+    private readonly List<IRule> _rules;
+    private readonly Presence? _presence;
     private string _fieldIdentifier => _description.Id;
 
-    public IContainer Parent { get; set; }
-    public List<IContainer> Children { get; set; }
+    public Multiplicity Multiplicity { get; }
 
     public string Content => string.Join("\r\n", _content ?? new List<string>());
 
-    public string Index => _fieldIdentifier;
     public bool HasContent => _content is { Count: > 0 };
 
-    public bool IsPassed { get; private set; } = false;
-
-    public Field(FieldDescription description, IContainer parent, List<IContainer>? childs = null, List<IRule>? rules = null, Presence? presence = null,
-        Multiplicity multiplicity = Multiplicity.Single)
+    public Field(FieldDescription description, IXdtElement? parent = null, List<IRule>? rules = null, Presence? presence = null,
+        bool multiple = false) : base(description.Id)
     {
         _description = description;
         _presence = presence;
         _rules = rules ?? new();
-        _multiplicity = multiplicity;
-        Children = childs ?? new();
+        Multiplicity = multiple ? Multiplicity.Multiple : Multiplicity.Single;
         Parent = parent;
     }
 
-    public bool IsValid()
+    public override bool IsValid()
     {
         var parentField = this.GetFieldAbove();
         if (_presence == Presence.M)
@@ -77,15 +71,17 @@ internal class Field : IContainer
             return false;
         }
 
-        return Children.TrueForAll(child => child.IsValid());
+        return Children.IsValid();
     }
 
-    public bool TakeLine(XdtLine line)
+    public override bool TakeLine(XdtLine line)
     {
-        if (IsPassed)
+        if (ContainerState == ContainerState.Finished)
         {
             return false;
         }
+
+        ContainerState = ContainerState.Open;
 
         if (line.FieldIdentifier == _fieldIdentifier)
         {
@@ -94,15 +90,12 @@ internal class Field : IContainer
             return true;
         }
 
-        foreach (var child in Children)
+        if (Children.TakeLine(line))
         {
-            if (child.TakeLine(line))
-            {
-                return true;
-            }
+            return true;
         }
 
-        IsPassed = true;
+        ContainerState = ContainerState.Finished;
         return false;
     }
 }

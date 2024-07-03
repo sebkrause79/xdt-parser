@@ -6,40 +6,32 @@ namespace XdtParser.XdtTypes.LdtTest;
 
 internal class Sentence8221 : Sentence
 {
-    public Sentence8221(IContainer parent) : base("8221", parent)
+    public Sentence8221() : base("8221")
     {
-        Children = new List<IContainer>()
-        {
+        this.WithChild(
             new Field(
-                description: FieldDescriptionFactory.Get("1234"),
-                parent: _rootElement,
-                childs: new()
-                {
+                    description: FieldDescFactory.Get("1234"),
+                    parent: this,
+                    rules: null,
+                    presence: Presence.K,
+                    multiple: true
+                )
+                .WithChild(
                     new Field(
-                        description: FieldDescriptionFactory.Get("1235"),
-                        parent: _rootElement,
-                        childs: new()
-                        {
-                        },
+                        description: FieldDescFactory.Get("1235"),
                         rules: null,
                         presence: Presence.m,
-                        multiplicity: Multiplicity.Single
+                        multiple: false
                     )
-                },
-                rules: null,
-                presence: Presence.K,
-                multiplicity: Multiplicity.Multiple
-            ),
+                )
+        );
+        this.WithChild(
             new Field(
-                description: FieldDescriptionFactory.Get("1236"),
-                parent: _rootElement,
-                childs: new()
-                {
-                },
+                description: FieldDescFactory.Get("1236"),
                 rules: null,
                 presence: Presence.K,
-                multiplicity: Multiplicity.Single
+                multiple: false
             )
-        };
+        );
     }
 }

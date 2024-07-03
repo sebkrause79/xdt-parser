@@ -3,13 +3,13 @@ using XdtParser.Interface;
 
 namespace XdtParser.Helper;
 
-internal static class ContainerHelper
+internal static class TreeHelper
 {
-    public static Field? GetFieldAbove(this IContainer item)
+    public static Field? GetFieldAbove(this IXdtElement? item)
     {
         do
         {
-            item = item.Parent;
+            item = item?.Parent;
             if (item is null or Field)
             {
                 return (Field?)item;

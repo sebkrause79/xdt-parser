@@ -2,5 +2,5 @@
 
 internal interface IRule
 {
-    bool IsValid(string content, IContainer? context);
+    bool IsValid(string content, IXdtElement? context);
 }

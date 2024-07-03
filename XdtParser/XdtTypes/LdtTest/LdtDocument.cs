@@ -1,16 +1,16 @@
 ﻿using System.Runtime.CompilerServices;
+using XdtParser.Container;
 using XdtParser.Helper;
 using XdtParser.Interface;
 
 [assembly:InternalsVisibleTo("XdtParser.Tests")]
 namespace XdtParser.XdtTypes.LdtTest;
 
-public abstract class LdtDocument : IContainer
+public abstract class LdtDocument : IUserCallable
 {
-    public IContainer Parent => null!;
-    public List<IContainer> Children { get; set; }
+    internal List<Sentence> _children { get; set; }
 
-    public string Index => string.Join(" / ", Children.Select(c => c.Index));
+    public string Index => string.Join(" / ", _children.Select(c => c.Index));
 
     internal LdtDocument(List<XdtLine> lines)
     {
@@ -20,8 +20,8 @@ public abstract class LdtDocument : IContainer
             throw new ArgumentException("Found row not containing to a sentence");
         }
 
-        Children = blocks
-            .Select(b => SentenceFactory.GetSentence(b.block, this))
+        _children = blocks
+            .Select(b => SentenceFactory.GetSentence(b.block))
             .ToList();
 
         TakeLines(lines);
@@ -29,7 +29,7 @@ public abstract class LdtDocument : IContainer
 
     public virtual bool IsValid()
     {
-        return Children.TrueForAll(c => c.IsValid());
+        return _children.TrueForAll(c => c.IsValid());
     }
 
     public void TakeLines(List<XdtLine> lines)
@@ -46,15 +46,23 @@ public abstract class LdtDocument : IContainer
 
     public bool TakeLine(XdtLine line)
     {
-        var success = false;
-        foreach (var child in Children)
+        foreach (var child in _children)
         {
-            success |= child.TakeLine(line);
+            if (child.TakeLine(line))
+            {
+                return true;
+            }
         }
-        return success;
+        return false;
     }
 
     public bool IsPassed { get; private set; }
 
     public bool BreakOnParseError { get; set; } = true;
+
+    public string this[string fi]
+    {
+        get { throw new NotImplementedException(); }
+        set { throw new NotImplementedException(); }
+    }
 }

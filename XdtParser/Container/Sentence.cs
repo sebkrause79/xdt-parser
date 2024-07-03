@@ -5,80 +5,23 @@ using XdtParser.XdtTypes.LdtTest;
 
 namespace XdtParser.Container;
 
-internal abstract class Sentence : IContainer
+internal abstract class Sentence : BaseXdtElement
 {
-    protected string _name;
-
-    private readonly List<IContainer> _elements = new();
-
-    protected IContainer _rootElement => _elements.First();
-
-    public IContainer Parent { get; init; }
-    public List<IContainer> Children
+    public override IXdtElement? Parent
     {
-        get => _rootElement.Children; set => _rootElement.Children = value;
+        get => null!;
+        set { }
     }
 
-    public string Index => _name;
-
-    protected Sentence(string name, IContainer parent)
+    protected Sentence(string type) : base(type)
     {
-        _name = name;
-        Parent = parent;
+        var start = new Field(description: FieldDescFactory.Get("8000"), parent: this,
+            rules: new() { new AllowedContentRule(type) }, multiple: false, presence: Presence.M);
+        var end = new Field(description: FieldDescFactory.Get("8001"), parent: this,
+            rules: new() { new AllowedContentRule(type) }, multiple: false, presence: Presence.M);
 
-        _elements.Add(new Field(description: FieldDescriptionFactory.Get("8000"),
-            parent: this,
-            childs: new(),
-            rules: new()
-            {
-                new AllowedContentRule(name)
-            },
-            multiplicity: Multiplicity.Single,
-            presence: Presence.M));
-
-        _elements.Add(new Field(description: FieldDescriptionFactory.Get("8001"),
-            parent: this,
-            childs: null,
-            rules: new()
-            {
-                new AllowedContentRule(name)
-            },
-            multiplicity: Multiplicity.Single,
-            presence: Presence.M));
+        Children.WithChild(start);
+        Children.WithChild(end);
+        Children.UseSubchildForAdding(start);
     }
-
-    public bool IsValid()
-    {
-        foreach (var element in _elements)
-        {
-            if (!element.IsValid())
-            {
-                return false;
-            }
-        }
-        return true;
-        //return _elements.TrueForAll(e => e.IsValid());
-    }
-
-    public bool TakeLine(XdtLine line)
-    {
-        if (IsPassed)
-        {
-            return false;
-        }
-
-        foreach (var item in _elements)
-        {
-            if (item.TakeLine(line))
-            {
-                return true;
-            }
-        }
-
-        IsPassed = true;
-
-        return false;
-    }
-
-    public bool IsPassed { get; private set; } = false;
 }

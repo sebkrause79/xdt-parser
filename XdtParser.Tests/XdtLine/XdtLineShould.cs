@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using XdtParser.XdtTypes.LdtTest;
 
 namespace XdtParser.Tests.XdtLine;
 
@@ -33,6 +34,11 @@ public class XdtLineShould
         var ldt = parsed.AsLdt();
 
         ldt.IsValid().Should().BeTrue();
+
+        if (ldt is LdtDocumentLaboratoryToSender doc)
+        {
+            
+        }
 
         parsed["8000"].Should().Be("8215");
         parsed["1234"].Should().Be("Row 1\r\nRow 2");

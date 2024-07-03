@@ -4,7 +4,7 @@ namespace XdtParser.Rules;
 
 internal class AllowedContentRule : IRule
 {
-    private IEnumerable<string> _whitelist;
+    private readonly IEnumerable<string> _whitelist;
 
     internal AllowedContentRule(IEnumerable<string> contents)
     {
@@ -16,7 +16,7 @@ internal class AllowedContentRule : IRule
         _whitelist = new[] { content };
     }
 
-    public bool IsValid(string content, IContainer? context)
+    public bool IsValid(string content, IXdtElement? context)
     {
         return _whitelist.Contains(content);
     }

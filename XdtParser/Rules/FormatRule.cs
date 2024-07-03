@@ -4,7 +4,7 @@ namespace XdtParser.Rules;
 
 internal class FormatRule : IRule
 {
-    public bool IsValid(string content, IContainer? context)
+    public bool IsValid(string content, IXdtElement? context)
     {
         throw new NotImplementedException();
     }

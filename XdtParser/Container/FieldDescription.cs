@@ -1,4 +1,6 @@
-﻿namespace XdtParser.Container;
+﻿#nullable disable
+
+namespace XdtParser.Container;
 
 internal class FieldDescription
 {

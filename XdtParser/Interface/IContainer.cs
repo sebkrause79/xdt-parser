@@ -1,16 +1,6 @@
 ﻿namespace XdtParser.Interface;
 
-public interface IContainer
+internal interface IContainer : IRunState, IValidatable, IXdtLineConsumer
 {
-    IContainer Parent { get; }
-
-    string Index { get; }
-
-    List<IContainer> Children { get; set; }
-
-    bool IsValid();
-
-    bool TakeLine(XdtLine line);
-
-    bool IsPassed { get; }
+    List<IXdtElement> Elements { get; }
 }

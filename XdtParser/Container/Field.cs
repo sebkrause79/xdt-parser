@@ -107,4 +107,11 @@ internal sealed class Field : BaseXdtElement
         };
         return result;
     }
+
+    public override string GetTreeView(int indent, string indentUnit)
+    {
+        return indentUnit.Repeat(indent) + 
+               $"Field {_fieldIdentifier}: {Content.ReplaceLineEndings(" // ")}\r\n" + 
+               Children.GetTreeView(indent + 1, indentUnit);
+    }
 }

@@ -40,4 +40,5 @@ internal abstract class BaseXdtElement : IXdtElement, IUserCallable
     }
 
     public abstract IXdtElement GetClearedCopy();
+    public abstract string GetTreeView(int indent, string indentUnit);
 }

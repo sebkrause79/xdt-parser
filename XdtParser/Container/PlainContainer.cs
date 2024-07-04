@@ -1,4 +1,5 @@
 ﻿using XdtParser.Enums;
+using XdtParser.Helper;
 using XdtParser.Interface;
 
 namespace XdtParser.Container;
@@ -52,5 +53,12 @@ internal class PlainContainer : IContainer
             result.Elements.Add(element.GetClearedCopy());
         }
         return result;
+    }
+
+    public string GetTreeView(int indent, string indentUnit)
+    {
+        return indentUnit.Repeat(indent) +
+               $"PlainContainer:\r\n" +
+               string.Join("", Elements.Select(e => e.GetTreeView(indent + 1, indentUnit)));
     }
 }

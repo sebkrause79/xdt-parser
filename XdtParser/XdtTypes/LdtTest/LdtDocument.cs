@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 using XdtParser.Container;
 using XdtParser.Helper;
 using XdtParser.Interface;
@@ -64,5 +65,11 @@ public abstract class LdtDocument : IUserCallable
     {
         get { throw new NotImplementedException(); }
         set { throw new NotImplementedException(); }
+    }
+
+    public string GetTreeView(string indentUnit = "  ")
+    {
+        return $"LDT-Document:\r\n" +
+               string.Join("", _children.Select(e => e.GetTreeView(1, indentUnit)));
     }
 }

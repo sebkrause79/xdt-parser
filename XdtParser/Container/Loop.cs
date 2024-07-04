@@ -1,4 +1,5 @@
 ﻿using XdtParser.Enums;
+using XdtParser.Helper;
 using XdtParser.Interface;
 
 namespace XdtParser.Container;
@@ -30,6 +31,22 @@ internal class Loop : IContainer
 
     public bool TakeLine(XdtLine line)
     {
+        if (Elements.All(c => c is { ContainerState: ContainerState.Finished, Children.GotXdtContent: true }))
+        {
+            AddNextContainer();
+
+            if (TakeLine(line))
+            {
+                return true;
+            }
+
+            if (Elements.TrueForAll(c => c.ContainerState == ContainerState.Open))
+            {
+                _elements.Remove(_elements.Last());
+                ContainerState = ContainerState.Finished;
+            }
+        }
+
         ContainerState = ContainerState.Open;
         var success = false;
         foreach (var child in Elements)
@@ -47,21 +64,7 @@ internal class Loop : IContainer
             }
         }
 
-        if (Elements.All(c => c is { ContainerState: ContainerState.Finished, Children.GotXdtContent: true }))
-        {
-            AddNextContainer();
-
-            if (TakeLine(line))
-            {
-                return true;
-            }
-
-            if (Elements.TrueForAll(c => c.ContainerState == ContainerState.Open))
-            {
-                _elements.Remove(_elements.Last());
-                ContainerState = ContainerState.Finished;
-            }
-        }
+        
 
         return success;
     }
@@ -80,5 +83,12 @@ internal class Loop : IContainer
         }
 
         return result;
+    }
+
+    public string GetTreeView(int indent, string indentUnit)
+    {
+        return indentUnit.Repeat(indent) +
+               $"LoopContainer:\r\n" +
+               string.Join("", _elements.Select(e => e.GetTreeView(indent + 1, indentUnit)));
     }
 }

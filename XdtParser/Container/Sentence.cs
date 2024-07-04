@@ -1,4 +1,5 @@
 ﻿using XdtParser.Enums;
+using XdtParser.Helper;
 using XdtParser.Interface;
 using XdtParser.Rules;
 using XdtParser.XdtTypes.LdtTest;
@@ -7,6 +8,7 @@ namespace XdtParser.Container;
 
 internal abstract class Sentence : BaseXdtElement
 {
+    private string _type;
     public override IXdtElement? Parent
     {
         get => null!;
@@ -15,6 +17,8 @@ internal abstract class Sentence : BaseXdtElement
 
     protected Sentence(string type) : base(type)
     {
+        _type = type;
+
         var start = new Field(description: FieldDescFactory.Get("8000"), parent: this,
             rules: new() { new AllowedContentRule(type) }, multiple: false, presence: Presence.M);
         var end = new Field(description: FieldDescFactory.Get("8001"), parent: this,
@@ -29,5 +33,12 @@ internal abstract class Sentence : BaseXdtElement
     public override IXdtElement GetClearedCopy()
     {
         throw new InvalidOperationException("A sentence may not be copied");
+    }
+
+    public override string GetTreeView(int indent, string indentUnit)
+    {
+        return indentUnit.Repeat(indent) + 
+               $"Sentence {_type}:\r\n" + 
+               Children.GetTreeView(indent + 1, indentUnit);
     }
 }

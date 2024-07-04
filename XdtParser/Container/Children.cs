@@ -1,11 +1,12 @@
 ﻿using XdtParser.Enums;
+using XdtParser.Helper;
 using XdtParser.Interface;
 
 namespace XdtParser.Container;
 
-internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>
+internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>, ITreeView
 {
-    private List<IContainer> Containers { get; set; } = new();
+    public List<IContainer> Containers { get; private set; } = new();
 
     private Children? _subChildToAdd = null;
 
@@ -13,15 +14,16 @@ internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>
 
     public void WithChild(IXdtElement child)
     {
-        if (Containers.Count == 0)
-        {
-            Containers.Add(new PlainContainer());
-        }
 
         if (_subChildToAdd is not null)
         {
             _subChildToAdd.WithChild(child);
             return;
+        }
+
+        if (Containers.Count == 0)
+        {
+            Containers.Add(new PlainContainer());
         }
 
         if (child is Field { Multiplicity: Multiplicity.Multiple })
@@ -45,26 +47,31 @@ internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>
 
     public bool IsValid() => Containers.TrueForAll(c => c.IsValid());
 
+    public bool HasChildren => Containers.Any();
+
     public bool GotXdtContent => Containers.Any(c => c.GotXdtContent);
 
-    public bool TakeLine(XdtLine line) => Containers
-        .FirstOrDefault(c => c.ContainerState != ContainerState.Finished)?
-        .TakeLine(line) ?? false;
+    public bool TakeLine(XdtLine line)
+    {
+        foreach (var container in Containers.Where(c => c.ContainerState != ContainerState.Finished))
+        {
+            if (container.TakeLine(line))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public void UseSubchildForAdding(IXdtElement element) => _subChildToAdd = element.Children;
 
     internal Field GetField(string fi)
     {
-        foreach (var container in Containers)
-        {
-            var element = container.Elements.FirstOrDefault(x => x is Field field && field.Index == fi);
-            if (element is not null)
-            {
-                return (Field)element;
-            }
-        }
-
-        return null!;
+        return Containers
+            .Union(_subChildToAdd?.Containers ?? new List<IContainer>())
+            .SelectMany(c => c.GetFields())
+            .FirstOrDefault(f => f.Index == fi)!;
     }
 
     public Children GetClearedCopy()
@@ -82,5 +89,12 @@ internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>
         }
 
         return result;
+    }
+
+    public string GetTreeView(int indent, string indentUnit)
+    {
+        return indentUnit.Repeat(indent) +
+        $"Children:\r\n" +
+               string.Join("", Containers.Select(e => e.GetTreeView(indent + 1, indentUnit)));
     }
 }

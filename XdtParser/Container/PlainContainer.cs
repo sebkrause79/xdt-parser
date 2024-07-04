@@ -6,6 +6,9 @@ namespace XdtParser.Container;
 internal class PlainContainer : IContainer
 {
     public List<IXdtElement> Elements { get; set; } = new();
+
+    public bool GotXdtContent { get; private set; }
+
     public ContainerState ContainerState { get; set; } = ContainerState.NotStarted;
 
     public bool IsValid()
@@ -27,6 +30,7 @@ internal class PlainContainer : IContainer
             success = child.TakeLine(line);
             if (success)
             {
+                GotXdtContent = true;
                 break;
             }
         }
@@ -37,5 +41,16 @@ internal class PlainContainer : IContainer
         }
 
         return success;
+    }
+
+    public IContainer GetClearedCopy()
+    {
+        var result = new PlainContainer();
+        result.Elements.Clear();
+        foreach (var element in Elements)
+        {
+            result.Elements.Add(element.GetClearedCopy());
+        }
+        return result;
     }
 }

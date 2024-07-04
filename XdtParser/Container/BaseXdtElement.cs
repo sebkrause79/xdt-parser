@@ -6,8 +6,9 @@ namespace XdtParser.Container;
 internal abstract class BaseXdtElement : IXdtElement, IUserCallable
 {
     public virtual IXdtElement? Parent { get; set; }
-    public Children Children { get; } = new();
+    public Children Children { get; set; } = new();
     public string Index { get; }
+    protected IXdtElement? _subChildForAdding;
 
     protected BaseXdtElement(string type)
     {
@@ -16,7 +17,7 @@ internal abstract class BaseXdtElement : IXdtElement, IUserCallable
 
     public IXdtElement WithChild(IXdtElement child)
     {
-        child.Parent = this;
+        child.Parent = _subChildForAdding ?? this;
         Children.WithChild(child);
         return this;
     }
@@ -37,4 +38,6 @@ internal abstract class BaseXdtElement : IXdtElement, IUserCallable
 
         return Children.TakeLine(line);
     }
+
+    public abstract IXdtElement GetClearedCopy();
 }

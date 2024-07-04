@@ -5,7 +5,7 @@ using XdtParser.Rules;
 
 namespace XdtParser.Container;
 
-internal class Field : BaseXdtElement
+internal sealed class Field : BaseXdtElement
 {
     private readonly FieldDescription _description;
     private List<string> _content = null!;
@@ -97,5 +97,14 @@ internal class Field : BaseXdtElement
 
         ContainerState = ContainerState.Finished;
         return false;
+    }
+
+    public override IXdtElement GetClearedCopy()
+    {
+        var result = new Field(_description, Parent, _rules, _presence, Multiplicity == Multiplicity.Multiple)
+        {
+            Children = Children.GetClearedCopy()
+        };
+        return result;
     }
 }

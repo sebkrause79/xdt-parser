@@ -4,7 +4,11 @@ namespace XdtParser.XdtTypes.LdtTest;
 
 internal class LdtDocumentLaboratoryToSender : LdtDocument
 {
-    public List<Sentence8205> Befunde => ((Sentence8205[])_children.ToArray()[1..^1]).ToList();
+    public List<Sentence8205> Befunde => _children
+            .Skip(1)
+            .SkipLast(1)
+            .Select(x => (Sentence8205)x)
+            .ToList();
 
     public LdtDocumentLaboratoryToSender(List<XdtLine> lines) : base(lines)
     {

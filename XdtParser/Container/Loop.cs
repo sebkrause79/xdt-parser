@@ -5,12 +5,21 @@ namespace XdtParser.Container;
 
 internal class Loop : IContainer
 {
-    private readonly List<IContainer> _elements = new() { new PlainContainer() } ;
+    private readonly List<IContainer> _elements = new();
 
     public List<IXdtElement> Elements
     {
-        get => _elements.Last().Elements;
+        get
+        {
+            if (_elements.Count == 0)
+            {
+                _elements.Add(new PlainContainer());
+            }
+            return _elements.Last().Elements;
+        }
     }
+
+    public bool GotXdtContent { get; private set; }
 
     public ContainerState ContainerState { get; set; } = ContainerState.NotStarted;
 
@@ -33,11 +42,12 @@ internal class Loop : IContainer
             success = child.TakeLine(line);
             if (success)
             {
+                GotXdtContent = true;
                 break;
             }
         }
 
-        if (Elements.All(c => c.ContainerState == ContainerState.Finished))
+        if (Elements.All(c => c is { ContainerState: ContainerState.Finished, Children.GotXdtContent: true }))
         {
             AddNextContainer();
 
@@ -58,6 +68,17 @@ internal class Loop : IContainer
 
     private void AddNextContainer()
     {
-        throw new NotImplementedException();
+        _elements.Add(_elements.First().GetClearedCopy());
+    }
+
+    public IContainer GetClearedCopy()
+    {
+        var result = new Loop();
+        foreach (var child in Elements)
+        {
+            result.Elements.Add(child.GetClearedCopy());
+        }
+
+        return result;
     }
 }

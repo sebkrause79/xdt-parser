@@ -22,6 +22,12 @@ internal abstract class Sentence : BaseXdtElement
 
         Children.WithChild(start);
         Children.WithChild(end);
+        _subChildForAdding = start;
         Children.UseSubchildForAdding(start);
+    }
+
+    public override IXdtElement GetClearedCopy()
+    {
+        throw new InvalidOperationException("A sentence may not be copied");
     }
 }

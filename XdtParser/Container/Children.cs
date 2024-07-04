@@ -3,9 +3,9 @@ using XdtParser.Interface;
 
 namespace XdtParser.Container;
 
-internal class Children : IValidatable, IXdtLineConsumer
+internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>
 {
-    private List<IContainer> Containers { get; set; } = new() { new PlainContainer() };
+    private List<IContainer> Containers { get; set; } = new();
 
     private Children? _subChildToAdd = null;
 
@@ -13,6 +13,11 @@ internal class Children : IValidatable, IXdtLineConsumer
 
     public void WithChild(IXdtElement child)
     {
+        if (Containers.Count == 0)
+        {
+            Containers.Add(new PlainContainer());
+        }
+
         if (_subChildToAdd is not null)
         {
             _subChildToAdd.WithChild(child);
@@ -39,8 +44,43 @@ internal class Children : IValidatable, IXdtLineConsumer
     }
 
     public bool IsValid() => Containers.TrueForAll(c => c.IsValid());
-    
-    public bool TakeLine(XdtLine line) => Containers.Last().TakeLine(line);
+
+    public bool GotXdtContent => Containers.Any(c => c.GotXdtContent);
+
+    public bool TakeLine(XdtLine line) => Containers
+        .FirstOrDefault(c => c.ContainerState != ContainerState.Finished)?
+        .TakeLine(line) ?? false;
 
     public void UseSubchildForAdding(IXdtElement element) => _subChildToAdd = element.Children;
+
+    internal Field GetField(string fi)
+    {
+        foreach (var container in Containers)
+        {
+            var element = container.Elements.FirstOrDefault(x => x is Field field && field.Index == fi);
+            if (element is not null)
+            {
+                return (Field)element;
+            }
+        }
+
+        return null!;
+    }
+
+    public Children GetClearedCopy()
+    {
+        var result = new Children();
+        var dict = Containers.ToDictionary(c => c, c => c.GetClearedCopy());
+        foreach (var (oldContainer, newContainer) in dict)
+        {
+            result.Containers.Add(newContainer);
+            var pos = oldContainer.Elements.FindIndex(elem => elem.Children == _subChildToAdd);
+            if (pos >= 0)
+            {
+                result.UseSubchildForAdding(newContainer.Elements[pos]);
+            }
+        }
+
+        return result;
+    }
 }

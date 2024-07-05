@@ -74,6 +74,14 @@ internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>, I
         return x3;
     }
 
+    internal Object GetObject(string attribute)
+    {
+        var x1 = Containers.Union(_subChildToAdd?.Containers ?? new List<IContainer>());
+        var x2 = x1.SelectMany(c => c.Elements.OfType<Object>());
+        var x3 = x2.FirstOrDefault(obj => obj.Attribute == attribute)!;
+        return x3;
+    }
+
     public Children GetClearedCopy()
     {
         var result = new Children();

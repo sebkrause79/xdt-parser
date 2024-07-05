@@ -1,4 +1,4 @@
-﻿namespace XdtParser.XdtTypes.LdtTest;
+﻿namespace XdtParser.XdtTypes.LdtTest.Factories;
 
 internal static class LdtDocumentFactory
 {

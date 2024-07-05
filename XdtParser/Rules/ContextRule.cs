@@ -1,11 +1,13 @@
-﻿using XdtParser.Interface;
+﻿using XdtParser.Enums;
+using XdtParser.Interface;
 
 namespace XdtParser.Rules;
 
-internal class ContextRule : IRule
+internal abstract class ContextRule : BaseRule
 {
-    public bool IsValid(string content, IXdtElement? context)
+    public ContextRule(RuleCategory category, RuleErrorState errorState) : base(category, errorState)
     {
-        throw new NotImplementedException();
     }
+
+    
 }

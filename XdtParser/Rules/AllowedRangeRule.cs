@@ -1,16 +1,18 @@
-﻿using XdtParser.Interface;
+﻿using XdtParser.Enums;
+using XdtParser.Interface;
 
 namespace XdtParser.Rules;
 
-internal class AllowedRangeRule : IRule
+internal class AllowedRangeRule : BaseRule
 {
     private readonly IEnumerable<(int start, int end)> _ranges;
 
-    internal AllowedRangeRule(IEnumerable<(int start, int end)> ranges)
+    internal AllowedRangeRule(IEnumerable<(int start, int end)> ranges, RuleCategory category, RuleErrorState errorState = RuleErrorState.F) : base(category, errorState)
     {
         _ranges = ranges;
     }
-    public bool IsValid(string content, IXdtElement? context = null)
+
+    public override bool IsValid(string content, IXdtElement? context = null)
     {
         if (!int.TryParse(content, out var value))
         {

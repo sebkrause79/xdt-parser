@@ -1,24 +1,21 @@
 ﻿using XdtParser.Container;
 using XdtParser.Enums;
+using XdtParser.Interface;
+using XdtParser.XdtTypes.LdtTest.Factories;
 
-namespace XdtParser.XdtTypes.LdtTest;
+namespace XdtParser.XdtTypes.LdtTest.Sentences;
 
-internal class Sentence8205 : Sentence
+internal class Sentence8220 : Sentence
 {
-    public Field Feld_1 => this.Children.GetField("1234");
-    public Field Feld_2 => this.Children.GetField("1235");
-    public Field Feld_3 => this.Children.GetField("1236");
-
-    public Sentence8205() : base("8205")
+    public Sentence8220() : base("8220")
     {
-        this
-            .WithChild(
+        
+            WithChild(
                 new Field(description: FieldDescFactory.Get("1234"), parent: this, rules: null, presence: Presence.K, multiple: true)
                     .WithChild(
                         new Field(description: FieldDescFactory.Get("1235"), rules: null, presence: Presence.m, multiple: false)
                     )
-            );
-        this
+            )
             .WithChild(
                 new Field(description: FieldDescFactory.Get("1236"), rules: null, presence: Presence.K, multiple: false)
             );

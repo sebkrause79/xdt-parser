@@ -3,8 +3,9 @@ using System.Xml.Linq;
 using XdtParser.Container;
 using XdtParser.Helper;
 using XdtParser.Interface;
+using XdtParser.XdtTypes.LdtTest.Factories;
 
-[assembly:InternalsVisibleTo("XdtParser.Tests")]
+[assembly: InternalsVisibleTo("XdtParser.Tests")]
 namespace XdtParser.XdtTypes.LdtTest;
 
 public abstract class LdtDocument : IUserCallable
@@ -69,7 +70,7 @@ public abstract class LdtDocument : IUserCallable
 
     public string GetTreeView(string indentUnit = "  ")
     {
-        return $"LDT-Document:\r\n" +
+        return $"LDT-Document: {(IsValid() ? "ok" : "INVALID")}\r\n" +
                string.Join("", _children.Select(e => e.GetTreeView(1, indentUnit)));
     }
 }

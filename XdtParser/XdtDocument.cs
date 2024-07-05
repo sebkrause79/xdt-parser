@@ -1,4 +1,5 @@
 ﻿using XdtParser.XdtTypes.LdtTest;
+using XdtParser.XdtTypes.LdtTest.Factories;
 
 namespace XdtParser;
 
@@ -21,11 +22,9 @@ public class XdtDocument
         return new XdtDocument(lines);
     }
 
-    public string this[string fi] => 
-        string.Join(
-            "\r\n", 
-            _lines.First(l => l.FieldIdentifier == fi)?.Payload 
-            ?? throw new ArgumentOutOfRangeException($"Document does not contain field identifier '{fi}'"));
+    public IEnumerable<string> this[string fi] => 
+            _lines.Where(l => l.FieldIdentifier == fi)?.Select(l => l.GetPayload())
+            ?? throw new ArgumentOutOfRangeException($"Document does not contain field identifier '{fi}'");
 
     public string GetXdt() => string.Join("", _lines.Select(l => l.GetXdt()));
 

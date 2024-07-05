@@ -1,6 +1,7 @@
 ﻿using XdtParser.Container;
+using XdtParser.XdtTypes.LdtTest.Sentences;
 
-namespace XdtParser.XdtTypes.LdtTest;
+namespace XdtParser.XdtTypes.LdtTest.Factories;
 
 internal static class SentenceFactory
 {

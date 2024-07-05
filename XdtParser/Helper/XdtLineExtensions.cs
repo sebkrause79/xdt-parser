@@ -1,6 +1,6 @@
 ﻿namespace XdtParser.Helper;
 
-internal static class XdtListExtensions
+internal static class XdtLineExtensions
 {
     public static List<(List<XdtLine> block, bool isInBlock)> GetBlocks(this List<XdtLine> lines, string blockStart, string blockEnd)
     {

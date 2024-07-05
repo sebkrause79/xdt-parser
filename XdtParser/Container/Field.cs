@@ -111,7 +111,7 @@ internal sealed class Field : BaseXdtElement
     public override string GetTreeView(int indent, string indentUnit)
     {
         return indentUnit.Repeat(indent) + 
-               $"Field {_fieldIdentifier}: {Content.ReplaceLineEndings(" // ")}\r\n" + 
+               $"Field {_fieldIdentifier}: {Content.ReplaceLineEndings(" // ")} --- {(IsValid() ? "ok" : "INVALID")}\r\n" + 
                Children.GetTreeView(indent + 1, indentUnit);
     }
 }

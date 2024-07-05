@@ -2,7 +2,7 @@
 using XdtParser.Helper;
 using XdtParser.Interface;
 using XdtParser.Rules;
-using XdtParser.XdtTypes.LdtTest;
+using XdtParser.XdtTypes.LdtTest.Factories;
 
 namespace XdtParser.Container;
 
@@ -20,9 +20,9 @@ internal abstract class Sentence : BaseXdtElement
         _objectName = objectName;
 
         var start = new Field(description: FieldDescFactory.Get("8000"), parent: this,
-            rules: new() { new AllowedContentRule(objectName) }, multiple: false, presence: Presence.M);
+            rules: new() { new AllowedContentRule(objectName, RuleCategory.Basis) }, multiple: false, presence: Presence.M);
         var end = new Field(description: FieldDescFactory.Get("8001"), parent: this,
-            rules: new() { new AllowedContentRule(objectName) }, multiple: false, presence: Presence.M);
+            rules: new() { new AllowedContentRule(objectName, RuleCategory.Basis) }, multiple: false, presence: Presence.M);
 
         Children.WithChild(start);
         Children.WithChild(end);
@@ -38,7 +38,7 @@ internal abstract class Sentence : BaseXdtElement
     public override string GetTreeView(int indent, string indentUnit)
     {
         return indentUnit.Repeat(indent) + 
-               $"Sentence {_objectName}:\r\n" + 
+               $"Sentence {_objectName}: {(IsValid() ? "ok" : "INVALID")}\r\n" + 
                Children.GetTreeView(indent + 1, indentUnit);
     }
 }

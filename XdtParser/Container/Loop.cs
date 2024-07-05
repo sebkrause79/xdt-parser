@@ -75,7 +75,7 @@ internal class Loop : IContainer
     public string GetTreeView(int indent, string indentUnit)
     {
         return indentUnit.Repeat(indent) +
-               $"LoopContainer:\r\n" +
+               $"LoopContainer: {(IsValid() ? "ok" : "INVALID")}\r\n" +
                string.Join("", _elements.Select(e => e.GetTreeView(indent + 1, indentUnit)));
     }
 

@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LdtParser\LdtParser.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="XML\Test\fields.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -58,7 +58,7 @@ internal class PlainContainer : IContainer
     public string GetTreeView(int indent, string indentUnit)
     {
         return indentUnit.Repeat(indent) +
-               $"PlainContainer:\r\n" +
+               $"PlainContainer: {(IsValid() ? "ok" : "INVALID")}\r\n" +
                string.Join("", Elements.Select(e => e.GetTreeView(indent + 1, indentUnit)));
     }
 }

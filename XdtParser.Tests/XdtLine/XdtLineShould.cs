@@ -45,6 +45,8 @@ public class XdtLineShould
 
         if (ldt is LdtDocumentLaboratoryToSender doc)
         {
+            var field2_2 = doc.Befunde[1].Feld_1;
+
             doc.Befunde.First().Feld_1.Content.Should().Be("Mein erster\r\nBefund");
         }
 

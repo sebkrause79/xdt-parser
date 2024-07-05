@@ -7,7 +7,7 @@ internal class LdtDocumentLaboratoryToSender : LdtDocument
     public List<Sentence8205> Befunde => _children
             .Skip(1)
             .SkipLast(1)
-            .Select(x => (Sentence8205)x)
+            .OfType<Sentence8205>()
             .ToList();
 
     public LdtDocumentLaboratoryToSender(List<XdtLine> lines) : base(lines)

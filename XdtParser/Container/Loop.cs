@@ -31,20 +31,9 @@ internal class Loop : IContainer
 
     public bool TakeLine(XdtLine line)
     {
-        if (Elements.All(c => c is { ContainerState: ContainerState.Finished, Children.GotXdtContent: true }))
+        if (TryAddToNewContainer(line))
         {
-            AddNextContainer();
-
-            if (TakeLine(line))
-            {
-                return true;
-            }
-
-            if (Elements.TrueForAll(c => c.ContainerState == ContainerState.Open))
-            {
-                _elements.Remove(_elements.Last());
-                ContainerState = ContainerState.Finished;
-            }
+            return true;
         }
 
         ContainerState = ContainerState.Open;
@@ -64,14 +53,12 @@ internal class Loop : IContainer
             }
         }
 
-        
+        if (TryAddToNewContainer(line))
+        {
+            return true;
+        }
 
         return success;
-    }
-
-    private void AddNextContainer()
-    {
-        _elements.Add(_elements.First().GetClearedCopy());
     }
 
     public IContainer GetClearedCopy()
@@ -90,5 +77,26 @@ internal class Loop : IContainer
         return indentUnit.Repeat(indent) +
                $"LoopContainer:\r\n" +
                string.Join("", _elements.Select(e => e.GetTreeView(indent + 1, indentUnit)));
+    }
+
+    private bool TryAddToNewContainer(XdtLine line)
+    {
+        if (Elements.All(c => c is { ContainerState: ContainerState.Finished, Children.GotXdtContent: true }))
+        {
+            _elements.Add(_elements.First().GetClearedCopy());
+
+            if (TakeLine(line))
+            {
+                return true;
+            }
+
+            if (Elements.TrueForAll(c => c is { ContainerState: ContainerState.Finished, Children.GotXdtContent: false } or Field { HasContent: false, Children.GotXdtContent: false }))
+            {
+                _elements.Remove(_elements.Last());
+                ContainerState = ContainerState.Finished;
+            }
+        }
+
+        return false;
     }
 }

@@ -8,21 +8,21 @@ namespace XdtParser.Container;
 
 internal abstract class Sentence : BaseXdtElement
 {
-    private string _type;
+    private readonly string _objectName;
     public override IXdtElement? Parent
     {
         get => null!;
         set { }
     }
 
-    protected Sentence(string type) : base(type)
+    protected Sentence(string objectName) : base(objectName)
     {
-        _type = type;
+        _objectName = objectName;
 
         var start = new Field(description: FieldDescFactory.Get("8000"), parent: this,
-            rules: new() { new AllowedContentRule(type) }, multiple: false, presence: Presence.M);
+            rules: new() { new AllowedContentRule(objectName) }, multiple: false, presence: Presence.M);
         var end = new Field(description: FieldDescFactory.Get("8001"), parent: this,
-            rules: new() { new AllowedContentRule(type) }, multiple: false, presence: Presence.M);
+            rules: new() { new AllowedContentRule(objectName) }, multiple: false, presence: Presence.M);
 
         Children.WithChild(start);
         Children.WithChild(end);
@@ -38,7 +38,7 @@ internal abstract class Sentence : BaseXdtElement
     public override string GetTreeView(int indent, string indentUnit)
     {
         return indentUnit.Repeat(indent) + 
-               $"Sentence {_type}:\r\n" + 
+               $"Sentence {_objectName}:\r\n" + 
                Children.GetTreeView(indent + 1, indentUnit);
     }
 }

@@ -10,9 +10,9 @@ internal abstract class BaseXdtElement : IXdtElement, IUserCallable
     public string Index { get; }
     protected IXdtElement? _subChildForAdding;
 
-    protected BaseXdtElement(string type)
+    protected BaseXdtElement(string objectName)
     {
-        Index = type;
+        Index = objectName;
     }
 
     public IXdtElement WithChild(IXdtElement child)

@@ -68,10 +68,10 @@ internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>, I
 
     internal Field GetField(string fi)
     {
-        return Containers
-            .Union(_subChildToAdd?.Containers ?? new List<IContainer>())
-            .SelectMany(c => c.GetFields())
-            .FirstOrDefault(f => f.Index == fi)!;
+        var x1 = Containers.Union(_subChildToAdd?.Containers ?? new List<IContainer>());
+        var x2 = x1.SelectMany(c => c.GetFields());
+        var x3 = x2.FirstOrDefault(f => f.Index == fi)!;
+        return x3;
     }
 
     public Children GetClearedCopy()

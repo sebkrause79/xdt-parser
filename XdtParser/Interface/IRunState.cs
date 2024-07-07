@@ -2,7 +2,7 @@
 
 namespace XdtParser.Interface;
 
-internal interface IRunState
+public interface IRunState
 {
     ContainerState ContainerState { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿namespace XdtParser.Interface;
 
-internal interface IValidatable
+public interface IValidatable
 {
     bool IsValid();
 }

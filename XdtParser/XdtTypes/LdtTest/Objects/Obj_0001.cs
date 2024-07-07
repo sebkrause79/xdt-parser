@@ -1,11 +1,11 @@
-﻿using XdtParser.Container;
+﻿using XdtParser.ParsedContainer;
 using XdtParser.Enums;
 using XdtParser.Interface;
 using XdtParser.XdtTypes.LdtTest.Factories;
 
 namespace XdtParser.XdtTypes.LdtTest.Objects;
 
-internal class Obj_0001 : Container.Object
+public class Obj_0001 : ParsedContainer.Object
 {
     public Field Nachname => Children.GetField("1237");
     public Field Vorname => Children.GetField("1238");

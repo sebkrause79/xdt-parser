@@ -1,4 +1,5 @@
-﻿using XdtParser.Container;
+﻿using XdtParser.ParsedContainer;
+using XdtParser.RawContainer;
 using XdtParser.XdtTypes.LdtTest.Sentences;
 
 namespace XdtParser.XdtTypes.LdtTest.Factories;

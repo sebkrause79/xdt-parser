@@ -1,6 +1,6 @@
 ﻿namespace XdtParser.Interface;
 
-internal interface ICopyable<T>
+public interface ICopyable<T>
 {
     T GetClearedCopy();
 }

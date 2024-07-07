@@ -1,37 +1,35 @@
-﻿using XdtParser.XdtTypes.LdtTest;
+﻿using XdtParser.Interface;
+using XdtParser.ParsedContainer;
 using XdtParser.XdtTypes.LdtTest.Factories;
 
-namespace XdtParser;
+namespace XdtParser.RawContainer;
 
-public class XdtDocument
+internal class XdtRaw : IXdtRaw
 {
     private readonly List<XdtLine> _lines = new();
 
-    private XdtDocument(List<XdtLine> lines)
+    private XdtRaw(List<XdtLine> lines)
     {
         _lines = lines;
     }
 
-    public static XdtDocument FromXdt(string xdt)
+    public List<XdtLine> Lines { get { return _lines; } }
+
+    public static IXdtRaw ImportXdt(string xdt)
     {
         var lines = xdt.Split("\r\n")
             .Where(s => !string.IsNullOrWhiteSpace(s))
             .Select(s => new XdtLine(s))
             .Aggregate(new List<XdtLine>(), KumulateLines);
 
-        return new XdtDocument(lines);
+        return new XdtRaw(lines);
     }
 
-    public IEnumerable<string> this[string fi] => 
+    public IEnumerable<string> this[string fi] =>
             _lines.Where(l => l.FieldIdentifier == fi)?.Select(l => l.GetPayload())
             ?? throw new ArgumentOutOfRangeException($"Document does not contain field identifier '{fi}'");
 
-    public string GetXdt() => string.Join("", _lines.Select(l => l.GetXdt()));
-
-    public LdtDocument AsLdt()
-    {
-        return LdtDocumentFactory.GetDocument(_lines);
-    }
+    public string ExportXdt() => string.Join("", _lines.Select(l => l.GetXdt()));
 
     private static List<XdtLine> KumulateLines(List<XdtLine> list, XdtLine next)
     {

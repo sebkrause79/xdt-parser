@@ -1,8 +1,8 @@
 ﻿#nullable disable
 
-namespace XdtParser.Container;
+namespace XdtParser.ParsedContainer;
 
-internal class FieldDescription
+public class FieldDescription
 {
     public string Id { get; set; }
     public string Length { get; set; }

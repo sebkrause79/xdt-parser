@@ -1,10 +1,11 @@
 ﻿using XdtParser.Enums;
 using XdtParser.Helper;
 using XdtParser.Interface;
+using XdtParser.RawContainer;
 
-namespace XdtParser.Container;
+namespace XdtParser.ParsedContainer;
 
-internal class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>, ITreeView
+public class Children : IValidatable, IXdtLineConsumer, ICopyable<Children>, ITreeView
 {
     public List<IContainer> Containers { get; private set; } = new();
 

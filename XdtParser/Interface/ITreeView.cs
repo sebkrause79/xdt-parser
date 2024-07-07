@@ -1,6 +1,6 @@
 ﻿namespace XdtParser.Interface;
 
-internal interface ITreeView
+public interface ITreeView
 {
     string GetTreeView(int indent, string indentUnit);
 }

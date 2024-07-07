@@ -4,9 +4,9 @@ using XdtParser.Interface;
 using XdtParser.Rules;
 using XdtParser.XdtTypes.LdtTest.Factories;
 
-namespace XdtParser.Container;
+namespace XdtParser.ParsedContainer;
 
-internal abstract class Object : BaseXdtElement
+public abstract class Object : BaseXdtElement
 {
     private readonly string _objectName;
     private readonly string _attributeFi;

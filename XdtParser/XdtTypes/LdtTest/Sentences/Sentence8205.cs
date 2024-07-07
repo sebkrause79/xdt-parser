@@ -1,11 +1,11 @@
-﻿using XdtParser.Container;
+﻿using XdtParser.ParsedContainer;
 using XdtParser.Enums;
 using XdtParser.XdtTypes.LdtTest.Factories;
 using XdtParser.XdtTypes.LdtTest.Objects;
 
 namespace XdtParser.XdtTypes.LdtTest.Sentences;
 
-internal class Sentence8205 : Sentence
+public class Sentence8205 : LdtSentence
 {
     public Field Feld_1 => Children.GetField("1234");
     public Field Feld_2 => Children.GetField("1235");

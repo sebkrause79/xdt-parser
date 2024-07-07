@@ -1,13 +1,16 @@
 ﻿using XdtParser.Enums;
 using XdtParser.Interface;
+using XdtParser.RawContainer;
+using XdtParser.XdtTypes;
 
-namespace XdtParser.Container;
+namespace XdtParser.ParsedContainer;
 
-internal abstract class BaseXdtElement : IXdtElement, IUserCallable
+public abstract class BaseXdtElement : IXdtElement, IXdtParsed
 {
     public virtual IXdtElement? Parent { get; set; }
     public Children Children { get; set; } = new();
     public string Index { get; }
+    public DocumentType? DocumentType { get; protected set; } = null;
     protected IXdtElement? _subChildForAdding;
 
     protected BaseXdtElement(string objectName)

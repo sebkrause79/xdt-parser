@@ -1,4 +1,4 @@
-﻿using XdtParser.Container;
+﻿using XdtParser.ParsedContainer;
 using XdtParser.Interface;
 
 namespace XdtParser.Helper;
@@ -15,15 +15,5 @@ internal static class TreeHelper
                 return (Field?)item;
             }
         } while (true);
-    }
-
-    public static Field? FindFieldAbove(this IXdtElement? item, string needleFi)
-    {
-        do
-        {
-            item = item.GetFieldAbove();
-        } while (item is Field f && f.Index != needleFi);
-
-        return (Field?)item;
     }
 }

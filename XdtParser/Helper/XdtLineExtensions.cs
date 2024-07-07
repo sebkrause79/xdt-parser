@@ -1,4 +1,6 @@
-﻿namespace XdtParser.Helper;
+﻿using XdtParser.RawContainer;
+
+namespace XdtParser.Helper;
 
 internal static class XdtLineExtensions
 {

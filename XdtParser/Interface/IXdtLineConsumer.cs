@@ -1,4 +1,6 @@
-﻿namespace XdtParser.Interface;
+﻿using XdtParser.RawContainer;
+
+namespace XdtParser.Interface;
 
 public interface IXdtLineConsumer
 {

@@ -1,6 +1,6 @@
 ﻿namespace XdtParser.Enums;
 
-internal enum Multiplicity
+public enum Multiplicity
 {
     Single,
     Multiple

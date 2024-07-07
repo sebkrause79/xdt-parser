@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using XdtParser.RawContainer;
+using XdtParser.XdtTypes;
 using XdtParser.XdtTypes.LdtTest;
 
 namespace XdtParser.Tests.XdtLine;
@@ -8,7 +10,7 @@ public class XdtLineShould
     [Fact]
     public void ParseXdtCorrectly()
     {
-        var xdt = @"
+        var fileTxt = @"
 01380008220
 0141234Row 1
 0141234Row 2
@@ -51,26 +53,23 @@ public class XdtLineShould
 0201235Another Row
 01380018221
 ";
-        var parsed = XdtDocument.FromXdt(xdt);
-        var p8000 = parsed["8000"];
-        parsed["8000"].Should().BeEquivalentTo("8220", "8205", "8205", "8221");
-        parsed["1234"].Should().Contain("Row 1\r\nRow 2");
-        parsed["1235"].Should().Contain("Another Row");
-        parsed["8001"].Should().Contain("8220");
-        parsed.GetXdt().Should().Be(xdt.TrimStart());
-        
-        var ldt = parsed.AsLdt();
+        var raw = XdtParser.GetRaw(fileTxt);
+        raw["8000"].Should().BeEquivalentTo("8220", "8205", "8205", "8221");
+        raw["1234"].Should().Contain("Row 1\r\nRow 2");
+        raw["1235"].Should().Contain("Another Row");
+        raw["8001"].Should().Contain("8220");
+        raw.ExportXdt().Should().Be(fileTxt.TrimStart());
+
+        var xdt = XdtParser.GetLdt(fileTxt);
+        xdt.DocumentType.Should().Be(DocumentType.LdtTest_LaboratoryToSender);
+        var ldt = (LdtDocumentLaboratoryToSender)xdt;
 
         var tree = ldt.GetTreeView("|  ");
 
-
-        if (ldt is LdtDocumentLaboratoryToSender doc)
-        {
-            doc.Befunde.First().Feld_1.Content.Should().Be("Mein erster\r\nBefund");
-            doc.Befunde[1].Arzt.Vorname.Content.Should().Be("Peter");
-            doc.Befunde[0].Patient.Vorname.Content.Should().Be("Herbert");
-            doc.Befunde[1].Patient.Vorname.Content.Should().Be("Ann\r\nKatrin");
-        }
+        ldt.Befunde.First().Feld_1.Content.Should().Be("Mein erster\r\nBefund");
+        ldt.Befunde[1].Arzt.Vorname.Content.Should().Be("Peter");
+        ldt.Befunde[0].Patient.Vorname.Content.Should().Be("Herbert");
+        ldt.Befunde[1].Patient.Vorname.Content.Should().Be("Ann\r\nKatrin");
 
         ldt.IsValid().Should().BeTrue();
     }

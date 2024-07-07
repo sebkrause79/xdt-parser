@@ -1,11 +1,14 @@
-﻿using XdtParser.Container;
+﻿using XdtParser.ParsedContainer;
+using XdtParser.RawContainer;
 using XdtParser.XdtTypes.LdtTest.Sentences;
 
 namespace XdtParser.XdtTypes.LdtTest
 {
-    internal class LdtDocumentSenderToLaboratory : LdtDocument
+    internal class LdtDocumentSenderToLaboratory : XdtParsed
     {
         public List<Sentence8215> Auftraege => ((Sentence8215[])_children.ToArray()[1..^1]).ToList();
+
+        public override DocumentType? DocumentType => XdtTypes.DocumentType.LdtTest_SenderToLaboratory;
 
         public LdtDocumentSenderToLaboratory(List<XdtLine> lines) : base(lines)
         {

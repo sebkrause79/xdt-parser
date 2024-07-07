@@ -1,11 +1,11 @@
-﻿using XdtParser.Container;
+﻿using XdtParser.ParsedContainer;
 using XdtParser.Enums;
 using XdtParser.Interface;
 using XdtParser.XdtTypes.LdtTest.Factories;
 
 namespace XdtParser.XdtTypes.LdtTest.Sentences;
 
-internal class Sentence8215 : Sentence
+internal class Sentence8215 : LdtSentence
 {
     public Sentence8215() : base("8215")
     {

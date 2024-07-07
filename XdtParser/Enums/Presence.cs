@@ -1,6 +1,6 @@
 ﻿namespace XdtParser.Enums;
 
-internal enum Presence
+public enum Presence
 {
     M,
     m,

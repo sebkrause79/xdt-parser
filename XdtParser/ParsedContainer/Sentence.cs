@@ -4,9 +4,9 @@ using XdtParser.Interface;
 using XdtParser.Rules;
 using XdtParser.XdtTypes.LdtTest.Factories;
 
-namespace XdtParser.Container;
+namespace XdtParser.ParsedContainer;
 
-internal abstract class Sentence : BaseXdtElement
+public abstract class Sentence : BaseXdtElement
 {
     private readonly string _objectName;
     public override IXdtElement? Parent
@@ -15,13 +15,13 @@ internal abstract class Sentence : BaseXdtElement
         set { }
     }
 
-    protected Sentence(string objectName) : base(objectName)
+    protected Sentence(string objectName, string sentenceStartFi, string sentenceEndFi) : base(objectName)
     {
         _objectName = objectName;
 
-        var start = new Field(description: FieldDescFactory.Get("8000"), parent: this,
+        var start = new Field(description: FieldDescFactory.Get(sentenceStartFi), parent: this,
             rules: new() { new AllowedContentRule(objectName, RuleCategory.Basis) }, multiple: false, presence: Presence.M);
-        var end = new Field(description: FieldDescFactory.Get("8001"), parent: this,
+        var end = new Field(description: FieldDescFactory.Get(sentenceEndFi), parent: this,
             rules: new() { new AllowedContentRule(objectName, RuleCategory.Basis) }, multiple: false, presence: Presence.M);
 
         Children.WithChild(start);

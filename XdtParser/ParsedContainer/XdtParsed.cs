@@ -1,20 +1,20 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Xml.Linq;
-using XdtParser.Container;
 using XdtParser.Helper;
 using XdtParser.Interface;
+using XdtParser.RawContainer;
+using XdtParser.XdtTypes;
 using XdtParser.XdtTypes.LdtTest.Factories;
 
 [assembly: InternalsVisibleTo("XdtParser.Tests")]
-namespace XdtParser.XdtTypes.LdtTest;
+namespace XdtParser.ParsedContainer;
 
-public abstract class LdtDocument : IUserCallable
+public abstract class XdtParsed : IXdtParsed
 {
     internal List<Sentence> _children { get; set; }
 
     public string Index => string.Join(" / ", _children.Select(c => c.Index));
 
-    internal LdtDocument(List<XdtLine> lines)
+    internal XdtParsed(List<XdtLine> lines)
     {
         var blocks = lines.GetBlocks("8000", "8001");
         if (blocks.Any(b => !b.isInBlock))
@@ -34,7 +34,7 @@ public abstract class LdtDocument : IUserCallable
         return _children.TrueForAll(c => c.IsValid());
     }
 
-    public void TakeLines(List<XdtLine> lines)
+    internal void TakeLines(List<XdtLine> lines)
     {
         foreach (var line in lines)
         {
@@ -46,7 +46,7 @@ public abstract class LdtDocument : IUserCallable
         }
     }
 
-    public bool TakeLine(XdtLine line)
+    internal bool TakeLine(XdtLine line)
     {
         foreach (var child in _children)
         {
@@ -58,15 +58,10 @@ public abstract class LdtDocument : IUserCallable
         return false;
     }
 
-    public bool IsPassed { get; private set; }
+    internal bool IsPassed { get; private set; }
 
-    public bool BreakOnParseError { get; set; } = true;
-
-    public string this[string fi]
-    {
-        get { throw new NotImplementedException(); }
-        set { throw new NotImplementedException(); }
-    }
+    internal bool BreakOnParseError { get; set; } = true;
+    public abstract DocumentType? DocumentType { get; }
 
     public string GetTreeView(string indentUnit = "  ")
     {

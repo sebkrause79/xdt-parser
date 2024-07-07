@@ -1,11 +1,12 @@
 ﻿using XdtParser.Enums;
 using XdtParser.Helper;
 using XdtParser.Interface;
+using XdtParser.RawContainer;
 using XdtParser.Rules;
 
-namespace XdtParser.Container;
+namespace XdtParser.ParsedContainer;
 
-internal sealed class Field : BaseXdtElement
+public sealed class Field : BaseXdtElement
 {
     private readonly FieldDescription _description;
     private List<string> _content = null!;

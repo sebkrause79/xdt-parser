@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LdtParser.ModelGenerator", "LdtParser.ModelGenerator\LdtParser.ModelGenerator.csproj", "{43B1BEC2-167E-40A5-848A-80905465C89C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XdtParser", "XdtParser\XdtParser.csproj", "{1E374CB0-7D4C-4272-9E5E-239D947CE4D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XdtParser.Tests", "XdtParser.Tests\XdtParser.Tests.csproj", "{9D4014D2-EEF9-44D2-B2FA-203F35424AEE}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{43B1BEC2-167E-40A5-848A-80905465C89C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43B1BEC2-167E-40A5-848A-80905465C89C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43B1BEC2-167E-40A5-848A-80905465C89C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43B1BEC2-167E-40A5-848A-80905465C89C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E374CB0-7D4C-4272-9E5E-239D947CE4D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E374CB0-7D4C-4272-9E5E-239D947CE4D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E374CB0-7D4C-4272-9E5E-239D947CE4D9}.Release|Any CPU.ActiveCfg = Release|Any CPU

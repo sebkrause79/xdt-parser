@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xdt:fields xmlns:xdt="https://sebschauer.de/xdt-schema">
+	<xdt:field id="0001" length="&lt;=12" format="alnum">Feld 1</xdt:field>
+	<xdt:field id="0002" length="&lt;=60" format="alnum">Feld 2</xdt:field>
+	<xdt:field id="0003" length="&lt;=60" format="alnum">Feld 3</xdt:field>
+	<xdt:field id="0004" length="&lt;=60" format="alnum">Feld 4</xdt:field>
+	<xdt:field id="0005" length="&lt;=60" format="alnum">Feld 5</xdt:field>
+	<xdt:field id="1001" length="&lt;=60" format="alnum">Feld 1 Satz 1000</xdt:field>
+	<xdt:field id="1002" length="&lt;=60" format="alnum">Feld 2 Satz 1000</xdt:field>
+</xdt:fields>

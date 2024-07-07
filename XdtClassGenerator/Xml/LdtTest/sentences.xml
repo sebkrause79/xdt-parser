@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sentences>
+	<sentence id="1000">
+		<field id="1001" presence="1" description="Titelfeld Satz 1000" type="M">
+			<object id="Obj_0001" presence="1" type="m"></object>
+		</field>
+		<field id="1001" presence="1" description="Footer Satz 1000" type="M"></field>
+	</sentence>
+</sentences>

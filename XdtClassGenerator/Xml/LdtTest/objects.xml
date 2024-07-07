@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xdt:objects xmlns:xdt="https://sebschauer.de/xdt-schema">
+	<xdt:object id="Obj_0001" rules="">
+		<xdt:field id="0001" presence="n" description="Dieses Obj1-Feld muss n-mal da sein und Obj2 enthalten." type="m">
+			<xdt:object id="Obj_0002" presence="1" type="M" />
+		</xdt:field>
+		<xdt:field id="0002" presence="1" description="Dieses Obj1-Feld darf fehlen"></xdt:field>
+	</xdt:object>
+	<xdt:object id="Obj_0002" rules="">
+		<xdt:field id="0002" presence="1" description="Dieses Obj2-Feld muss einmal da sein und Feld 3 n-mal enthalten." type="m">
+			<xdt:field id="0003" presence="n" description="Feld 3" type="m"></xdt:field>
+		</xdt:field>		
+	</xdt:object>
+</xdt:objects>

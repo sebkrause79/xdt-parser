@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\LdtTest\Factories\FieldDescFactory.cs.txt" />
+    <None Remove="Templates\LdtTest\Factories\ObjectFactory.cs.txt" />
+    <None Remove="Templates\LdtTest\Factories\RulesFactory.cs.txt" />
+    <None Remove="Templates\LdtTest\Factories\SentenceFactory.cs.txt" />
+    <None Remove="Templates\LdtTest\LdtDocumentLaboratoryToSender.cs.txt" />
+    <None Remove="Templates\LdtTest\LdtDocumentSenderToLaboratory.cs.txt" />
+    <None Remove="Templates\LdtTest\Objects\Obj_0001.cs.txt" />
+    <None Remove="Templates\LdtTest\Rules\K001.cs.txt" />
+    <None Remove="Templates\LdtTest\Sentences\LdtSentence.cs.txt" />
+    <None Remove="Templates\LdtTest\Sentences\Sentence8205.cs.txt" />
+    <None Remove="Templates\LdtTest\Sentences\Sentence8215.cs.txt" />
+    <None Remove="Templates\LdtTest\Sentences\Sentence8220.cs.txt" />
+    <None Remove="Templates\LdtTest\Sentences\Sentence8221.cs.txt" />
+    <None Remove="Templates\LdtTest\Sentences\Sentence8230.cs.txt" />
+    <None Remove="Templates\LdtTest\Sentences\Sentence8231.cs.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Templates\LdtTest\Factories\FieldDescFactory.cs.txt" />
+    <Compile Include="Templates\LdtTest\Factories\ObjectFactory.cs.txt" />
+    <Compile Include="Templates\LdtTest\Factories\RulesFactory.cs.txt" />
+    <Compile Include="Templates\LdtTest\Factories\SentenceFactory.cs.txt" />
+    <Compile Include="Templates\LdtTest\LdtDocumentLaboratoryToSender.cs.txt" />
+    <Compile Include="Templates\LdtTest\LdtDocumentSenderToLaboratory.cs.txt" />
+    <Compile Include="Templates\LdtTest\Objects\Obj_0001.cs.txt" />
+    <Compile Include="Templates\LdtTest\Rules\K001.cs.txt" />
+    <Compile Include="Templates\LdtTest\Sentences\LdtSentence.cs.txt" />
+    <Compile Include="Templates\LdtTest\Sentences\Sentence8205.cs.txt" />
+    <Compile Include="Templates\LdtTest\Sentences\Sentence8215.cs.txt" />
+    <Compile Include="Templates\LdtTest\Sentences\Sentence8220.cs.txt" />
+    <Compile Include="Templates\LdtTest\Sentences\Sentence8221.cs.txt" />
+    <Compile Include="Templates\LdtTest\Sentences\Sentence8230.cs.txt" />
+    <Compile Include="Templates\LdtTest\Sentences\Sentence8231.cs.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Generated\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Xml\LdtTest\fields.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Xml\LdtTest\objects.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Xml\LdtTest\rules.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Xml\LdtTest\sentences.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Xml\LdtTest\version.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

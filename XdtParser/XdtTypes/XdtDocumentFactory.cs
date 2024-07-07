@@ -9,6 +9,12 @@ internal static class XdtDocumentFactory
     public static XdtParsed GetLdtDocument(List<XdtLine> lines)
     {
         var first = lines.FirstOrDefault()?.GetPayload();
+        var version = lines.FirstOrDefault(l => l.FieldIdentifier == "0001")?.GetPayload() ?? string.Empty;
+        if (version.ToLower().Contains("ldt2"))
+        {
+            throw new NotImplementedException("LDT2 not implemented");
+        }
+
         return first switch
         {
             "8230" => new LdtDocumentSenderToLaboratory(lines),

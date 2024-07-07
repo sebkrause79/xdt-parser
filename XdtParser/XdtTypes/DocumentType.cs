@@ -5,3 +5,4 @@ public enum DocumentType
     LdtTest_LaboratoryToSender,
     LdtTest_SenderToLaboratory,
 }
+ 

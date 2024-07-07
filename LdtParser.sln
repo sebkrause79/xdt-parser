@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XdtParser", "XdtParser\XdtP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XdtParser.Tests", "XdtParser.Tests\XdtParser.Tests.csproj", "{9D4014D2-EEF9-44D2-B2FA-203F35424AEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XdtClassGenerator", "XdtClassGenerator\XdtClassGenerator.csproj", "{C6176D8A-9B55-41D4-80CB-14882B598CFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9D4014D2-EEF9-44D2-B2FA-203F35424AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D4014D2-EEF9-44D2-B2FA-203F35424AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D4014D2-EEF9-44D2-B2FA-203F35424AEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6176D8A-9B55-41D4-80CB-14882B598CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6176D8A-9B55-41D4-80CB-14882B598CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6176D8A-9B55-41D4-80CB-14882B598CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6176D8A-9B55-41D4-80CB-14882B598CFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
